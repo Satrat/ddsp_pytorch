@@ -16,7 +16,7 @@ def mean_std_loudness(dataset):
     mean = 0
     std = 0
     n = 0
-    for _, _, l in dataset:
+    for _, _, l, _ in dataset:
         n += 1
         mean += (l.mean().item() - mean) / n
         std += (l.std().item() - std) / n
@@ -86,7 +86,7 @@ def extract_loudness(signal, sampling_rate, block_size, n_fft=2048):
         center=True,
     )
     S = np.log(abs(S) + 1e-7)
-    f = li.fft_frequencies(sampling_rate, n_fft)
+    f = li.fft_frequencies(sr=sampling_rate, n_fft=n_fft) + 1e-7
     a_weight = li.A_weighting(f)
 
     S = S + a_weight.reshape(-1, 1)

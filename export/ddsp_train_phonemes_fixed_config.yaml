@@ -1,0 +1,27 @@
+data:
+  data_location: D:\Documents\DATA\CSD\english\wav
+  extension: wav
+  mean_loudness: -4.887093369978188
+  std_loudness: 2.6924747498366086
+model:
+  block_size: 128
+  hidden_size: 512
+  n_bands: 65
+  n_harmonic: 100
+  sampling_rate: 16000
+preprocess:
+  block_size: 128
+  oneshot: false
+  out_dir: ./preprocessed/
+  sampling_rate: 16000
+  signal_length: 128000
+  wav_type: int16
+train:
+  overlap: 0.5
+  scales:
+  - 4096
+  - 2048
+  - 1024
+  - 512
+  - 256
+  - 128

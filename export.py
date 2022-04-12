@@ -30,14 +30,14 @@ class ScriptDDSP(torch.nn.Module):
         self.register_buffer("std_loudness", torch.tensor(std_loudness))
         self.realtime = realtime
 
-    def forward(self, pitch, loudness):
+    def forward(self, pitch, loudness, phonemes):
         loudness = (loudness - self.mean_loudness) / self.std_loudness
         if self.realtime:
             pitch = pitch[:, ::self.ddsp.block_size]
             loudness = loudness[:, ::self.ddsp.block_size]
             return self.ddsp.realtime_forward(pitch, loudness)
         else:
-            return self.ddsp(pitch, loudness)
+            return self.ddsp(pitch, loudness, phonemes)
 
 
 with open(path.join(args.RUN, "config.yaml"), "r") as config:

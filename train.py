@@ -69,14 +69,15 @@ step = 0
 epochs = int(np.ceil(args.STEPS / len(dataloader)))
 
 for e in tqdm(range(epochs)):
-    for s, p, l in dataloader:
+    for s, p, l, pho in dataloader: #signal, pitch, loudness, TODO: add phonemes
         s = s.to(device)
         p = p.unsqueeze(-1).to(device)
         l = l.unsqueeze(-1).to(device)
+        pho = pho.unsqueeze(-1).to(device)
 
         l = (l - mean_loudness) / std_loudness
 
-        y = model(p, l).squeeze(-1)
+        y = model(p, l, pho).squeeze(-1) #run model, conditioned on pitch and loudness
 
         ori_stft = multiscale_fft(
             s,

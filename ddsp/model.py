@@ -44,9 +44,9 @@ class DDSP(nn.Module):
         self.register_buffer("sampling_rate", torch.tensor(sampling_rate))
         self.register_buffer("block_size", torch.tensor(block_size))
 
-        self.in_mlps = nn.ModuleList([mlp(1, hidden_size, 3)] * 2)
-        self.gru = gru(2, hidden_size)
-        self.out_mlp = mlp(hidden_size + 2, hidden_size, 3)
+        self.in_mlps = nn.ModuleList([mlp(1, hidden_size, 3)] * 2) #adjusted 
+        self.gru = gru(3, hidden_size) #adjusted
+        self.out_mlp = mlp(hidden_size + 3, hidden_size, 3) #adjusted
 
         self.proj_matrices = nn.ModuleList([
             nn.Linear(hidden_size, n_harmonic + 1),
@@ -58,12 +58,18 @@ class DDSP(nn.Module):
         self.register_buffer("cache_gru", torch.zeros(1, 1, hidden_size))
         self.register_buffer("phase", torch.zeros(1))
 
-    def forward(self, pitch, loudness):
+        self.phoneme_embedding = nn.Embedding(41, 4)
+        self.phoneme_mlp = mlp(4, hidden_size, 3)
+
+    def forward(self, pitch, loudness, phonemes): #adjusted
+        embed_phonemes = self.phoneme_embedding(phonemes.to(torch.int64))
+        embed_phonemes = torch.reshape(embed_phonemes, (pitch.shape[0], pitch.shape[1],-1))
         hidden = torch.cat([
             self.in_mlps[0](pitch),
             self.in_mlps[1](loudness),
+            self.phoneme_mlp(embed_phonemes)
         ], -1)
-        hidden = torch.cat([self.gru(hidden)[0], pitch, loudness], -1)
+        hidden = torch.cat([self.gru(hidden)[0], pitch, loudness, phonemes], -1)
         hidden = self.out_mlp(hidden)
 
         # harmonic part
