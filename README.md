@@ -1,18 +1,11 @@
-# Differentiable Digital Signal Processing
+# Differentiable Digital Signal Processing with Phonemes
+This fork of the DDSP library adds functionality for encoding time-aligned phonemes, enabling the model to synthesize singing. This repository is used for the vocal synthesis stage of my computational creativity final project
 
-![ddsp_tilde_screenshot](patchs/screenshot_bitwig.png)
-
-Implementation of the [DDSP model](https://github.com/magenta/ddsp) using PyTorch. This implementation can be exported to a torchscript model, ready to be used inside a realtime environment (see [this video](https://www.youtube.com/watch?v=_U6Bn-1FDHc)).
-
-## Pretrained models
-
-| instrument | realtime | preprocessing | sampling rate |                                  link                                  |
-| :--------: | :------: | :-----------: | :-----------: | :--------------------------------------------------------------------: |
-| saxophone  |   true   |  `sigmund~`   |     48kHz     | [download](https://nubo.ircam.fr/index.php/s/7AenL27BEaxLkKi/download) |
-|   violin   |   true   |  `sigmund~`   |     48kHz     | [download](https://nubo.ircam.fr/index.php/s/f6XB4Kp9onxiNwZ/download) |
-<!-- |   violin   |   true   |    `crepe`    |     48kHz     | [download](https://nubo.ircam.fr/index.php/s/LzTsYr8zdqHYdMy/download) | -->
-<!-- |   violin   |  false   |    `crepe`    |     48kHz     | [download](https://nubo.ircam.fr/index.php/s/LMFo3eAb3C5by23/download) | -->
-
+### Summary of Fork Changes
+* updated `ddsp/model.py` to add phoneme labels as model input, and store phoneme data as an embedding vector
+* updated `preprocessing.py` script to parse phonemes from the Children's Song Dataset
+* added pretrained model with phonemes to `export` folder
+* added `inference_examples.ipynb` with example usage of phoneme model
 
 ## Usage
 
