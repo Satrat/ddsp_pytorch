@@ -6,6 +6,7 @@ This fork of the DDSP library adds functionality for encoding time-aligned phone
 * updated `preprocessing.py` script to parse phonemes from the Children's Song Dataset
 * added pretrained model with phonemes to `export` folder
 * added `inference_examples.ipynb` with example usage of phoneme model
+* example outputs in `example_outputs` folder
 
 Link to Project Notebook: https://colab.research.google.com/drive/1ioiLY0rOm2wufxAT5nqgudOYfPCuPCFs?usp=sharing
 
