@@ -7,6 +7,8 @@ This fork of the DDSP library adds functionality for encoding time-aligned phone
 * added pretrained model with phonemes to `export` folder
 * added `inference_examples.ipynb` with example usage of phoneme model
 
+Link to Project Notebook: https://colab.research.google.com/drive/1ioiLY0rOm2wufxAT5nqgudOYfPCuPCFs?usp=sharing
+
 ## Usage
 
 Edit the `config.yaml` file to fit your needs (audio location, preprocess folder, sampling rate, model parameters...), then preprocess your data using 
